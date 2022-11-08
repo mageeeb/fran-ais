@@ -1,0 +1,37 @@
+
+
+img{
+    border-radius: 50px;
+    width: 30em;
+    float: left;
+    margin-left: 30px;
+}
+.text p{
+    margin-left: 35em;
+    
+}
+
+h1{
+    text-align: center;
+    text-decoration: underline;
+}
+
+.page{
+    margin-top: 150px;
+}
+
+h2{
+    margin-left: 17em;
+}
+.synt{
+    margin-top: 150px;
+    margin-left: 15em;
+}
+
+.container-fluid{
+    background-color: gray;
+    margin-top: 20em;
+    
+
+}
+
