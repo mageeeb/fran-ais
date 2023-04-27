@@ -13,7 +13,7 @@ include_once '../view/include/header.php';
     
     <h2><?= $article['name_article'] ?></h2>
 
-    <!-- on a d'office un première photo qu'on va afficher -->
+    <!-- on a d'office une première photo qu'on va afficher -->
         <img src="<?= $imageByArticleID[0]['url'] ?> " alt=""> 
         <p><?= $paragraphe['0']?></p>   
         
