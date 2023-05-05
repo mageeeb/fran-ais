@@ -2,7 +2,7 @@
 
 $title = "ajout d'article";
 include_once '../view/include/header.php';
-var_dump($_POST);
+//var_dump($_POST);
 ?>
 
 <!-- <style> et <hr> à enlever quand il faudra styliser -->
@@ -17,8 +17,8 @@ var_dump($_POST);
 
 <form action="" method="POST">
     <input type="text" placeholder="nom de l'instrument" name="name_article">
-    <textarea name="min_description_article" id="" cols="30" rows="10" placeholder="une courte introduction de votre article"></textarea>
-    <textarea name="max_description_article" id="" cols="30" rows="10" placeholder="votre texte"></textarea>
+    <textarea name="min_description_article" id="" cols="30" rows="5" placeholder="une courte introduction de votre article"></textarea>
+    <textarea name="max_description_article" id="" cols="30" rows="20" placeholder="votre texte"></textarea>
     <input type="text" placeholder="extrait sonore mp3 (url)" name="sound_article">
     <input type="text" placeholder="URL photo 1 (obligatoire)" name="url_image_1">
     <input type="text" placeholder="URL photo 2 (optionnelle)" name="url_image_2">
@@ -33,6 +33,6 @@ var_dump($_POST);
         <hr>
     <input type="checkbox" name="perce hybride" id="perce hybride">
     <label for="perce hybride">perce cylindrique</label>
-    <input type="submit" value="envois">
+    <input type="submit" value="envois" name="submit">
 
 </form>

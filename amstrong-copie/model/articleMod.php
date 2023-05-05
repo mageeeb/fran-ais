@@ -155,7 +155,7 @@ function postAdminInsert(PDO $db, int $idUser, string $postTitle, string $postMi
     // début de transaction, arrête les autocommit, il faut appeler $db->commit() pour que toutes les requêtes soient effectivement validées
     $db->beginTransaction();
     // requêtes préparées contre les injections SQL (! au tableau $idCateg, on peut falsifier son contenu)
-    $preparePost = $db->prepare("INSERT INTO `post` (`name_article`,`min_description_article`,`max_description_article`,`sound_article`,`id_article`) VALUES (:name_article, :min_description_article, :max_description_article,:sound_article,:id_article)");
+    $preparePost = $db->prepare("INSERT INTO `article` (`name_article`,`min_description_article`,`max_description_article`,`sound_article`,`id_article`) VALUES (:name_article, :min_description_article, :max_description_article,:sound_article,:id_article)");
 
     $preparePost->bindValue(":id_article", $idUser, PDO::PARAM_INT);
     $preparePost->bindValue(":name_article", $postTitle, PDO::PARAM_STR);
@@ -166,6 +166,7 @@ function postAdminInsert(PDO $db, int $idUser, string $postTitle, string $postMi
     // insertion du Post
 
     $preparePost->execute();
+    var_dump($preparePost);
 
     // récupération immédiate de l'id inséré par la connexion de l'utilisateur actuel (table Post)
     $postLastInsertId = $db->lastInsertId();
@@ -177,13 +178,13 @@ function postAdminInsert(PDO $db, int $idUser, string $postTitle, string $postMi
 if(!empty($idCateg)){
 
     // requête préparée
-    $prepareCategory_has_post = $db->prepare("INSERT INTO `category_has_article` (`	id_category`,`id_artist `) VALUES (:idcateg, :idpost)");
+    $prepareCategory_has_post = $db->prepare("INSERT INTO `category_has_article` (`	category_id_category`,`article_id_article `) VALUES (:category_id_category, :article_id_article)");
     // $valeur par défaut (sera remplacée en cas de validité du tableau)
     $categId = 100;
 
     // attribution des valeurs par référence, $value est donc une valeur par défaut qui ne sera pas utilisée
-    $prepareCategory_has_post->bindParam("idpost",$postLastInsertId,PDO::PARAM_INT);
-    $prepareCategory_has_post->bindParam("idcateg",$categId,PDO::PARAM_INT);
+    $prepareCategory_has_post->bindParam("article_id_article",$postLastInsertId,PDO::PARAM_INT);
+    $prepareCategory_has_post->bindParam("article_id_article",$categId,PDO::PARAM_INT);
 
     foreach ($idCateg as $value) {
         if(ctype_digit($value)){
@@ -206,3 +207,48 @@ if(!empty($idCateg)){
     }
 
 }
+
+/*function postAdminInsert(PDO $db, int $idUser, string $title, string $content, array $idCateg = []): bool {
+    try {
+        // début de transaction, arrête les autocommit, il faut appeler $db->commit() pour que toutes les requêtes soient effectivement validées
+        $db->beginTransaction();
+
+        // requête préparée contre les injections SQL
+        $preparePost = $db->prepare("INSERT INTO `post` (`title`, `content`, `user_id`) VALUES (:title, :content, :idUser)");
+        $preparePost->bindValue(":title", $title, PDO::PARAM_STR);
+        $preparePost->bindValue(":content", $content, PDO::PARAM_STR);
+        $preparePost->bindValue(":idUser", $idUser, PDO::PARAM_INT);
+
+        // insertion du Post
+        $preparePost->execute();
+
+        // récupération immédiate de l'id inséré par la connexion de l'utilisateur actuel (table Post)
+        $postLastInsertId = $db->lastInsertId();
+
+        // pour insérer les catégories dans la table M2M, on ne garde que les valeurs qui doivent être des integer dans des champs category_has_post
+        // si le tableau n'est pas vide (catégories potentielles)
+        if (!empty($idCateg)) {
+            // requête préparée
+            $prepareCategory_has_post = $db->prepare("INSERT INTO `category_has_post` (`category_id`, `post_id`) VALUES (:idCateg, :idPost)");
+            $prepareCategory_has_post->bindParam(":idPost", $postLastInsertId, PDO::PARAM_INT);
+
+            foreach ($idCateg as $value) {
+                if (ctype_digit($value)) {
+                    $categId = (int) $value;
+                    $prepareCategory_has_post->bindParam(":idCateg", $categId, PDO::PARAM_INT);
+                    $prepareCategory_has_post->execute();
+                }
+            }
+        }
+
+        // on essaye d'envoyer toutes nos requêtes à la DB
+        $db->commit();
+        return true;
+    } catch (Exception $e) {
+        // si une erreur dans au moins 1 requête
+        // on les annule toutes
+        $db->rollBack();
+        die($e->getMessage());
+    }
+}*/
+
