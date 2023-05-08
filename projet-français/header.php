@@ -8,6 +8,7 @@
                 <li class="nav-item"><a class="nav-link" href="./body.php">Français</a></li>
                 <li class="nav-item"><a class="nav-link" href="./galerie.php">Galeries</a></li>
                 <li class="nav-item"><a class="nav-link" href="./lajetee.php">La jetée</a></li>
+                <li class="nav-item"><a class="nav-link" href="./DaphnéLeSergent.php">Daphné Le Sergent</a></li>
                
             </ul>
         </div>

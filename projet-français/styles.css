@@ -18,6 +18,7 @@ h1{
 
 .page{
     margin-top: 150px;
+    margin-right: 20em;
 }
 
 h2{
@@ -33,5 +34,21 @@ h2{
     margin-top: 20em;
     
 
+}
+
+p{
+    position: relative;
+    left: 3em;
+    
+}
+
+.galerie{
+    text-align: center;
+    position: relative;
+    top: 5em;
+  
+}
+footer{
+    text-align: center;
 }
 
