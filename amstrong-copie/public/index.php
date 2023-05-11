@@ -4,6 +4,10 @@ require_once '../config.php';
 require_once '../model/articleMod.php';
 require_once '../model/connectionMod.php';
 require_once '../model/contactMod.php';
+require_once '../model/updateArticleModel.php';
+
+// l'auto load pour le mailer de symfony :
+require_once '../vendor/autoload.php';
 
 
 try {

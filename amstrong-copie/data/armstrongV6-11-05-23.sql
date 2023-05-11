@@ -3,20 +3,23 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3307
--- Généré le : jeu. 20 avr. 2023 à 09:36
+-- Généré le : jeu. 11 mai 2023 à 11:48
 -- Version du serveur : 10.6.5-MariaDB
 -- Version de PHP : 8.1.0
 
-SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
 --
 -- Base de données : `armstrong`
 --
-CREATE DATABASE IF NOT EXISTS `armstrong` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `armstrong`;
 
 -- --------------------------------------------------------
 
@@ -31,10 +34,10 @@ CREATE TABLE IF NOT EXISTS `article` (
   `min_description_article` text NOT NULL,
   `max_description_article` text NOT NULL,
   `sound_article` varchar(255) NOT NULL,
-  `wiki_article` varchar(255) NOT NULL,
+  `wiki_article` varchar(255) DEFAULT NULL,
   `nb_click` int(11) DEFAULT NULL,
   `date_article` datetime NOT NULL DEFAULT current_timestamp(),
-  `user_id_user` int(11) NOT NULL,
+  `user_id_user` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_article`),
   KEY `fk_article_user1_idx` (`user_id_user`)
 ) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4;
@@ -44,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `article` (
 --
 
 INSERT INTO `article` (`id_article`, `name_article`, `min_description_article`, `max_description_article`, `sound_article`, `wiki_article`, `nb_click`, `date_article`, `user_id_user`) VALUES
-(12, 'Trompette', 'Instrument de musique à vent de la famille des cuivres, de perce cylindrique, muni de trois pistons, et qui donne le la dans les orchestres.', 'La trompette est un instrument de musique à vent de la famille des cuivres, de perce cylindrique, muni de trois pistons, et qui donne le la dans les orchestres. Elle est utilisée dans de nombreux styles de musique, notamment le jazz, la musique classique et la musique militaire. La trompette est un instrument phare de la musique populaire, et elle est souvent jouée en soliste ou en orchestre. Parmi les grands musiciens qui ont joué de la trompette, on peut citer Miles Davis, Louis Armstrong, Dizzy Gillespie, Freddie Hubbard, Wynton Marsalis et bien d\'autres encore.', '', 'https://fr.wikipedia.org/wiki/Trompette', NULL, '2023-04-17 13:30:19', 3),
+(12, 'Trompette', 'Instrument de musique à vent de la famille des cuivres, de perce cylindrique, muni de trois pistons, et qui donne le la dans les orchestres.', 'La trompette est un instrument de musique à vent de la famille des cuivres, de perce cylindrique, muni de trois pistons, et qui donne le la dans les orchestres. Elle est utilisée dans de nombreux styles de musique, notamment le jazz, la musique classique et la musique militaire. La trompette est un instrument phare de la musique populaire, et elle est souvent jouée en soliste ou en orchestre. Parmi les grands musiciens qui ont joué de la trompette, on peut citer Miles Davis, Louis Armstrong, Dizzy Gillespie, Freddie Hubbard, Wynton Marsalis et bien d\'autres encore.', 'https://2022.webdev-cf2m.be/jonathan/cuivremusic/public/asset/sound/trompetteAudio.mp3', 'https://fr.wikipedia.org/wiki/Trompette', NULL, '2023-04-17 13:30:19', 3),
 (13, 'Clairon', 'Instrument de musique à vent de la famille des cuivres, de perce cylindrique, proche de la trompette mais sans pistons.', 'Le bugle est un instrument de musique à vent de la famille des cuivres, de perce cylindrique, proche de la trompette mais sans pistons. Il est souvent utilisé dans les fanfares et les corps militaires. Le bugle, qui est plus simple que la trompette, est souvent utilisé pour les sonneries militaires et les hymnes nationaux. Parmi les grands musiciens qui ont joué du bugle, on peut citer Louis Armstrong, Clark Terry, et bien d\'autres encore.', '', 'https://fr.wikipedia.org/wiki/Clairon', NULL, '2023-04-17 13:30:19', 3),
 (14, 'Cornet', 'Instrument de musique à vent de la famille des cuivres, de perce cylindrique, semblable à la trompette mais avec une forme plus conique.', 'Le cornet est un instrument de musique à vent de la famille des cuivres, de perce cylindrique, semblable à la trompette mais avec une forme plus conique. Il est souvent utilisé dans les fanfares et les orchestres d\'harmonie. Le cornet est un instrument versatile, capable de produire des sons doux et mélodieux ainsi que des sons puissants et éclatants. Parmi les grands musiciens qui ont joué du cornet, on peut citer Bix Beiderbecke, Ruby Braff, Nat Adderley, et bien d\'autres encore.', '', 'https://fr.wikipedia.org/wiki/Cornet_%C3%A0_pistons', NULL, '2023-04-17 13:30:19', 4),
 (15, 'Flugelhorn', 'Instrument de musique à vent de la famille des cuivres, de perce cylindrique, ressemblant à la trompette mais avec un son plus doux et plus rond.', 'Le flugelhorn est un instrument de musique à vent de la famille des cuivres, de perce cylindrique, ressemblant à la trompette mais avec un son plus doux et plus rond. Il est souvent utilisé dans les orchestres de jazz et les ensembles de musique de chambre. Le flugelhorn est un instrument très expressif, capable de produire des sons chauds et veloutés. Parmi les grands musiciens qui ont joué du flugelhorn, on peut citer Art Farmer, Clark Terry, et bien d\'autres encore.', '', 'https://en.wikipedia.org/wiki/Flugelhorn', NULL, '2023-04-17 13:30:19', 3),
@@ -68,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `artist` (
   `name_artist` varchar(255) NOT NULL,
   `description_artist` text NOT NULL,
   `wiki_artist` text NOT NULL,
-  `article_id_article` int(11) NOT NULL,
+  `article_id_article` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_artist`),
   KEY `fk_artist_article1_idx` (`article_id_article`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
@@ -78,7 +81,7 @@ CREATE TABLE IF NOT EXISTS `artist` (
 --
 
 INSERT INTO `artist` (`id_artist`, `name_artist`, `description_artist`, `wiki_artist`, `article_id_article`) VALUES
-(3, 'Louis Armstrong', 'Louis Armstrong, né le 4 août 1901 à La Nouvelle-Orléans en Louisiane et mort le 6 juillet 1971 à New York, est un musicien de jazz et chanteur afro-américain. Il est également connu sous les surnoms de « Dippermouth », « Satchmo », « Satch » et « Pops »', 'https://fr.wikipedia.org/wiki/Louis_Armstrong', 12);
+(3, 'Louis Armstrong', 'Louis Armstrong, né le 4 août 1901 à La Nouvelle-Orléans en Louisiane et mort le 6 juillet 1971 à New York, est un musicien de jazz et chanteur afro-américain. Il est également connu sous les surnoms de « Dippermouth », « Satchmo », « Satch » et « Pops »', 'https://fr.wikipedia.org/wiki/Louis_Armstrong', NULL);
 
 -- --------------------------------------------------------
 
@@ -245,19 +248,22 @@ ALTER TABLE `article`
 -- Contraintes pour la table `artist`
 --
 ALTER TABLE `artist`
-  ADD CONSTRAINT `fk_artist_article1` FOREIGN KEY (`article_id_article`) REFERENCES `article` (`id_article`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_artist_article1` FOREIGN KEY (`article_id_article`) REFERENCES `article` (`id_article`) ON DELETE SET NULL ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `category_has_article`
 --
 ALTER TABLE `category_has_article`
-  ADD CONSTRAINT `fk_category_has_article_article1` FOREIGN KEY (`article_id_article`) REFERENCES `article` (`id_article`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_category_has_article_category1` FOREIGN KEY (`category_id_category`) REFERENCES `category` (`id_category`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_category_has_article_article1` FOREIGN KEY (`article_id_article`) REFERENCES `article` (`id_article`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_category_has_article_category1` FOREIGN KEY (`category_id_category`) REFERENCES `category` (`id_category`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `image`
 --
 ALTER TABLE `image`
-  ADD CONSTRAINT `fk_image_article1` FOREIGN KEY (`article_id_article`) REFERENCES `article` (`id_article`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-SET FOREIGN_KEY_CHECKS=1;
+  ADD CONSTRAINT `fk_image_article1` FOREIGN KEY (`article_id_article`) REFERENCES `article` (`id_article`) ON DELETE CASCADE ON UPDATE NO ACTION;
 COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

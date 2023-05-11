@@ -14,6 +14,7 @@ img{
 h1{
     text-align: center;
     text-decoration: underline;
+    margin-top: 15em;
 }
 
 .page{
@@ -27,6 +28,7 @@ h2{
 .synt{
     margin-top: 150px;
     margin-left: 15em;
+    margin-right: 15em;
 }
 
 .container-fluid{
