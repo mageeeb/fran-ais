@@ -2,7 +2,7 @@
 
 $title = "ajout d'article";
 include_once '../view/include/header.php';
-//var_dump($_POST);
+// var_dump($_POST);
 ?>
 
 <!-- <style> et <hr> à enlever quand il faudra styliser -->
@@ -23,16 +23,20 @@ include_once '../view/include/header.php';
     <input type="text" placeholder="URL photo 1 (obligatoire)" name="url_image_1">
     <input type="text" placeholder="URL photo 2 (optionnelle)" name="url_image_2">
     <input type="text" placeholder="URL photo 3 (optionnelle)" name="url_image_3">
-        <hr>
+    <hr>
     <p>Choisissez une ou plusieurs catégorie(s)</p>
-    <input type="checkbox" name="perce cylindrique" id="perce cylindrique">
-    <label for="perce cylindrique">perce cylindrique</label>
+    <?php
+    //modif
+    foreach ($allCateg as $item) :
+    ?>
+        <input type="checkbox" name="category_id_category[]" value="<?= $item['id_category'] ?>" id="<?= $item['name_category'] ?>">
+        <label for="<?= $item['name_category'] ?>"><?= $item['name_category'] ?></label>
         <hr>
-    <input type="checkbox" name="perce conique" id="perce conique">
-    <label for="perce conique">perce conique</label>
-        <hr>
-    <input type="checkbox" name="perce hybride" id="perce hybride">
-    <label for="perce hybride">perce cylindrique</label>
-    <input type="submit" value="envois" name="submit">
+    <?php
+    endforeach;
+    ?>
+    <input type="submit" value="envoie" name="submit">
+
+    <!--//-->
 
 </form>

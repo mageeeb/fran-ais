@@ -72,7 +72,24 @@ if(isset($_POST['login'],$_POST['pwd'])){
     }
 }            
                     
-elseif (!empty($_POST) && $_POST['password'] == $_POST['confirmPassword']) {
-    $inscrit = inscriptionUser($db, $_POST['pseudo'], $_POST['password'], $_POST['email'],);
-    }
-                    
+//elseif (!empty($_POST) && $_POST['password'] == $_POST['confirmPassword']) {
+   // $inscrit = inscriptionUser($db, $_POST['pseudo'], $_POST['password'], $_POST['email'],);
+  //  }
+
+//connexion et insertion table contact
+
+if(isset($_POST['contactName']) &&
+    isset($_POST['contactMail']) &&
+    isset($_POST['contactMessage'])) {
+        
+    $mailer = sendMail();
+
+    
+
+    if(sendMessage($db,$_POST['contactName'],$_POST['contactMail'],$_POST['contactMessage'])) {
+         echo "Insertion réussie";
+     } else {
+         echo "Echec de l'insertion";
+     }
+}                  
+

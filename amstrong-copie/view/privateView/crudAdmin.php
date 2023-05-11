@@ -2,25 +2,26 @@
 
 $title = 'admin';
 include_once '../view/include/header.php';
-// var_dump($allArticle);
+// var_dump()
 
 ?>
 <button><a href="?deconnect">deconnection</a></button>
 <button><a href="?p=article_add">ajoutez article</a></button>
+<?php if(empty($allArticle)):?>
+        <h2>y'a pas d'articles frer</h2>
+    <?php else: ?>
 <table>
     <tr>
         <th>nom d'article</th>
         <th>description</th>
         <th>date</th>
         <th>auteur</th>
+        <th>url</th>
         <th>catégorie</th>
         <th>update</th>
         <th>delete</th>
     </tr>
     <tr>
-        <?php
-        var_dump($_GET);
-        ?>
         <?php
         foreach ($allArticle as $item) :
         ?>
@@ -36,6 +37,7 @@ include_once '../view/include/header.php';
     </tr>
 <?php
         endforeach;
+    endif;
 ?>
 </table>
 

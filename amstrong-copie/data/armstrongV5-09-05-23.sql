@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3307
--- Généré le : mer. 26 avr. 2023 à 10:26
--- Version du serveur : 10.6.5-MariaDB
--- Version de PHP : 8.1.0
+-- Généré le : mar. 09 mai 2023 à 17:23
+-- Version du serveur : 10.10.2-MariaDB
+-- Version de PHP : 8.0.26
 
 SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -37,19 +37,21 @@ CREATE TABLE IF NOT EXISTS `article` (
   `min_description_article` text NOT NULL,
   `max_description_article` text NOT NULL,
   `sound_article` varchar(255) NOT NULL,
-  `wiki_article` varchar(255) NOT NULL,
+  `wiki_article` varchar(255) DEFAULT NULL,
   `nb_click` int(11) DEFAULT NULL,
   `date_article` datetime NOT NULL DEFAULT current_timestamp(),
   `user_id_user` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_article`),
   KEY `fk_article_user1_idx` (`user_id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `article`
 --
 
 INSERT INTO `article` (`id_article`, `name_article`, `min_description_article`, `max_description_article`, `sound_article`, `wiki_article`, `nb_click`, `date_article`, `user_id_user`) VALUES
+(12, 'Trompette', 'Instrument de musique à vent de la famille des cuivres, de perce cylindrique, muni de trois pistons, et qui donne le la dans les orchestres.', 'La trompette est un instrument de musique à vent de la famille des cuivres, de perce cylindrique, muni de trois pistons, et qui donne le la dans les orchestres. Elle est utilisée dans de nombreux styles de musique, notamment le jazz, la musique classique et la musique militaire. La trompette est un instrument phare de la musique populaire, et elle est souvent jouée en soliste ou en orchestre. Parmi les grands musiciens qui ont joué de la trompette, on peut citer Miles Davis, Louis Armstrong, Dizzy Gillespie, Freddie Hubbard, Wynton Marsalis et bien d\'autres encore.', '', 'https://fr.wikipedia.org/wiki/Trompette', NULL, '2023-04-17 13:30:19', 3),
+(13, 'Clairon', 'Instrument de musique à vent de la famille des cuivres, de perce cylindrique, proche de la trompette mais sans pistons.', 'Le bugle est un instrument de musique à vent de la famille des cuivres, de perce cylindrique, proche de la trompette mais sans pistons. Il est souvent utilisé dans les fanfares et les corps militaires. Le bugle, qui est plus simple que la trompette, est souvent utilisé pour les sonneries militaires et les hymnes nationaux. Parmi les grands musiciens qui ont joué du bugle, on peut citer Louis Armstrong, Clark Terry, et bien d\'autres encore.', '', 'https://fr.wikipedia.org/wiki/Clairon', NULL, '2023-04-17 13:30:19', 3),
 (14, 'Cornet', 'Instrument de musique à vent de la famille des cuivres, de perce cylindrique, semblable à la trompette mais avec une forme plus conique.', 'Le cornet est un instrument de musique à vent de la famille des cuivres, de perce cylindrique, semblable à la trompette mais avec une forme plus conique. Il est souvent utilisé dans les fanfares et les orchestres d\'harmonie. Le cornet est un instrument versatile, capable de produire des sons doux et mélodieux ainsi que des sons puissants et éclatants. Parmi les grands musiciens qui ont joué du cornet, on peut citer Bix Beiderbecke, Ruby Braff, Nat Adderley, et bien d\'autres encore.', '', 'https://fr.wikipedia.org/wiki/Cornet_%C3%A0_pistons', NULL, '2023-04-17 13:30:19', 4),
 (15, 'Flugelhorn', 'Instrument de musique à vent de la famille des cuivres, de perce cylindrique, ressemblant à la trompette mais avec un son plus doux et plus rond.', 'Le flugelhorn est un instrument de musique à vent de la famille des cuivres, de perce cylindrique, ressemblant à la trompette mais avec un son plus doux et plus rond. Il est souvent utilisé dans les orchestres de jazz et les ensembles de musique de chambre. Le flugelhorn est un instrument très expressif, capable de produire des sons chauds et veloutés. Parmi les grands musiciens qui ont joué du flugelhorn, on peut citer Art Farmer, Clark Terry, et bien d\'autres encore.', '', 'https://en.wikipedia.org/wiki/Flugelhorn', NULL, '2023-04-17 13:30:19', 3),
 (16, 'Cor d\'harmonie', 'Instrument de musique à vent de la famille des cuivres, de perce conique, utilisé dans les orchestres et les ensembles de musique de chambre.', 'Le cor d\'harmonie est un instrument de musique à vent de la famille des cuivres, de perce conique, utilisé dans les orchestres et les ensembles de musique de chambre. Il est souvent utilisé pour les parties mélodiques et harmoniques. Le cor d\'harmonie est un instrument très versatile, capable de produire des sons doux et mélodieux ainsi que des sons puissants et éclatants. Parmi les grands musiciens qui ont joué du cor d\'harmonie, on peut citer Dennis Brain, Barry Tuckwell, et bien d\'autres encore.', '', 'https://fr.wikipedia.org/wiki/Cor_d%27harmonie', NULL, '2023-04-17 14:02:51', 3),
@@ -75,7 +77,7 @@ CREATE TABLE IF NOT EXISTS `artist` (
   `article_id_article` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_artist`),
   KEY `fk_artist_article1_idx` (`article_id_article`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `artist`
@@ -96,7 +98,7 @@ CREATE TABLE IF NOT EXISTS `category` (
   `description_category` text NOT NULL,
   `name_category` varchar(255) NOT NULL,
   PRIMARY KEY (`id_category`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `category`
@@ -120,13 +122,15 @@ CREATE TABLE IF NOT EXISTS `category_has_article` (
   PRIMARY KEY (`category_id_category`,`article_id_article`),
   KEY `fk_category_has_article_article1_idx` (`article_id_article`),
   KEY `fk_category_has_article_category1_idx` (`category_id_category`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `category_has_article`
 --
 
 INSERT INTO `category_has_article` (`category_id_category`, `article_id_article`) VALUES
+(1, 12),
+(1, 13),
 (1, 14),
 (1, 15),
 (2, 16),
@@ -150,7 +154,7 @@ CREATE TABLE IF NOT EXISTS `contact` (
   `mail_contact` varchar(255) NOT NULL,
   `message_contact` varchar(255) NOT NULL,
   PRIMARY KEY (`id_contact`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -169,13 +173,19 @@ CREATE TABLE IF NOT EXISTS `image` (
   `article_id_article` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_image_article1_idx` (`article_id_article`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `image`
 --
 
 INSERT INTO `image` (`id`, `nom`, `url`, `position`, `credit_image_name`, `credit_image_link`, `article_id_article`) VALUES
+(1, 'trompette1', 'https://cdn.pixabay.com/photo/2019/05/16/23/56/musical-instruments-4208612_960_720.jpg', 1, 'Pixabay', 'https://pixabay.com/fr/photos/instruments-de-musique-trompette-4208612/', 12),
+(2, 'trompette2', 'https://upload.wikimedia.org/wikipedia/commons/2/2b/Trumpet.jpg', 2, 'Wikipédia', 'https://commons.wikimedia.org/wiki/File:Trumpet.jpg', 12),
+(3, 'trompette3', 'https://cdn.pixabay.com/photo/2020/03/31/13/33/music-4987649_960_720.jpg', 3, 'Pixabay', 'https://pixabay.com/fr/photos/la-musique-trompette-4987649/', 12),
+(4, 'clairon1', 'https://cdn.pixabay.com/photo/2013/02/25/15/46/british-86001_960_720.jpg', 1, 'Pixabay', 'https://pixabay.com/fr/photos/britanique-royal-scots-dragoon-86001/', 13),
+(5, 'clairon2', 'https://cdn.pixabay.com/photo/2011/08/03/01/44/flugelhorn-8447_960_720.jpg', 2, 'Pixabay', 'https://pixabay.com/fr/photos/bugle-instrument-de-cuivre-klaxon-8447/', 13),
+(6, 'clairon3', 'https://cdn.pixabay.com/photo/2016/07/08/15/04/music-1504532_960_720.png', 3, 'Pixabay', 'https://pixabay.com/fr/photos/musique-vent-clairon-1504532/', 13),
 (10, 'cornet1', 'https://cdn.pixabay.com/photo/2018/04/05/09/21/brass-3292265_960_720.jpg', 1, 'Pixabay', 'https://pixabay.com/fr/photos/laiton-musique-le-jazz-3292265/', 14),
 (11, 'cornet2', 'https://cdn.pixabay.com/photo/2015/01/09/01/16/cornet-593661_960_720.jpg', 2, 'Pixabay', 'https://pixabay.com/fr/photos/cornet-corps-scolaire-jouer-593661/', 14),
 (12, 'cornet3', 'https://cdn.pixabay.com/photo/2018/04/05/09/21/orchestra-3292264_960_720.jpg', 3, 'Pixabay', 'https://pixabay.com/fr/photos/orchestre-musique-instrument-cors-3292264/', 14),
@@ -217,7 +227,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `sub_date` text NOT NULL DEFAULT current_timestamp(),
   `permission_user` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `user`
